@@ -49,7 +49,7 @@ const Dashboard = () => {
       setWishlist(storedWishlist.slice(0, 3)); // Only show top 3 in dashboard
 
       // Fetch recommendations
-      axios.get('http://localhost:5000/api/products')
+      axios.get('https://luminabeauty.onrender.com/api/products')
         .then(res => {
           setRecommendations(res.data.sort(() => 0.5 - Math.random()).slice(0, 3));
         })
@@ -66,7 +66,7 @@ const Dashboard = () => {
   const fetchUserOrders = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:5000/api/orders/user', {
+      const res = await axios.get('https://luminabeauty.onrender.com/api/orders/user', {
         headers: { 'x-auth-token': token }
       });
       setOrders(res.data);
@@ -81,7 +81,7 @@ const Dashboard = () => {
   const fetchAddresses = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:5000/api/users/addresses', {
+      const res = await axios.get('https://luminabeauty.onrender.com/api/users/addresses', {
         headers: { 'x-auth-token': token }
       });
       setAddresses(res.data);
@@ -96,7 +96,7 @@ const Dashboard = () => {
   const fetchNotifications = async (email) => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get(`http://localhost:5000/api/notifications/user/${email}`, {
+      const res = await axios.get(`https://luminabeauty.onrender.com/api/notifications/user/${email}`, {
         headers: { 'x-auth-token': token }
       });
       setNotifications(res.data);
@@ -113,11 +113,11 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
     try {
       if (editingAddrId) {
-        await axios.put(`http://localhost:5000/api/users/addresses/${editingAddrId}`, addrForm, {
+        await axios.put(`https://luminabeauty.onrender.com/api/users/addresses/${editingAddrId}`, addrForm, {
           headers: { 'x-auth-token': token }
         });
       } else {
-        await axios.post('http://localhost:5000/api/users/addresses', addrForm, {
+        await axios.post('https://luminabeauty.onrender.com/api/users/addresses', addrForm, {
           headers: { 'x-auth-token': token }
         });
       }
@@ -135,7 +135,7 @@ const Dashboard = () => {
       async () => {
         const token = localStorage.getItem('token');
         try {
-          await axios.delete(`http://localhost:5000/api/users/addresses/${id}`, {
+          await axios.delete(`https://luminabeauty.onrender.com/api/users/addresses/${id}`, {
             headers: { 'x-auth-token': token }
           });
           fetchAddresses();

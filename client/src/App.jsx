@@ -87,7 +87,7 @@ const App = () => {
           if (parsedUser.role === 'admin') return; // Skip for admin
 
           // Simple ping to an auth route to check status via middleware
-          await axios.get('http://localhost:5000/api/users/addresses', {
+          await axios.get('https://luminabeauty.onrender.com/api/users/addresses', {
             headers: { 'x-auth-token': token }
           });
         } catch (err) {

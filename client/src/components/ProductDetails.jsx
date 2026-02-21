@@ -34,13 +34,13 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const res = await axios.get(`https://luminabeauty.onrender.com/api/products/${id}`);
         setProduct(res.data);
         
         // Check if user already requested notification
         if (user) {
           const token = localStorage.getItem('token');
-          const notifyRes = await axios.get(`http://localhost:5000/api/notifications/user/${user.email}`, {
+          const notifyRes = await axios.get(`https://luminabeauty.onrender.com/api/notifications/user/${user.email}`, {
             headers: { 'x-auth-token': token }
           });
           const hasRequested = notifyRes.data.some(n => n.productId?._id === id && n.status === 'pending');
@@ -48,7 +48,7 @@ const ProductDetails = () => {
         }
 
         // Fetch all products to filter for related ones
-        const allRes = await axios.get('http://localhost:5000/api/products');
+        const allRes = await axios.get('https://luminabeauty.onrender.com/api/products');
         const related = allRes.data
           .filter(p => p.category === res.data.category && p._id !== id)
           .slice(0, 4);
@@ -72,7 +72,7 @@ const ProductDetails = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/notifications/request', {
+      await axios.post('https://luminabeauty.onrender.com/api/notifications/request', {
         productId: id,
         userEmail: user.email,
         userName: user.name

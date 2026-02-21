@@ -13,7 +13,7 @@ const SearchResults = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/products');
+        const res = await axios.get('https://luminabeauty.onrender.com/api/products');
         const filtered = res.data.filter(p => 
           p.name.toLowerCase().includes(query.toLowerCase()) ||
           p.category.toLowerCase().includes(query.toLowerCase())

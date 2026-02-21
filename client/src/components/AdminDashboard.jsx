@@ -38,7 +38,7 @@ export default function AdminDashboard() {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/notifications', {
+      const res = await axios.get('https://luminabeauty.onrender.com/api/notifications', {
         headers: { 'x-auth-token': token }
       });
       setNotifications(res.data);
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/orders', {
+      const res = await axios.get('https://luminabeauty.onrender.com/api/orders', {
         headers: { 'x-auth-token': token }
       });
       setOrders(res.data);
@@ -68,7 +68,7 @@ export default function AdminDashboard() {
   const updateOrderStatus = async (orderId, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/status`, { status }, {
+      await axios.put(`https://luminabeauty.onrender.com/api/orders/${orderId}/status`, { status }, {
         headers: { 'x-auth-token': token }
       });
       fetchOrders();
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get('https://luminabeauty.onrender.com/api/products');
       setProducts(res.data);
     } catch (err) { console.error(err); }
   };
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get('https://luminabeauty.onrender.com/api/users', {
         headers: { 'x-auth-token': token }
       });
       setUsers(res.data);
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
       async () => {
         try {
           const token = localStorage.getItem('token');
-          await axios.put(`http://localhost:5000/api/users/${userId}/status`, { status }, {
+          await axios.put(`https://luminabeauty.onrender.com/api/users/${userId}/status`, { status }, {
             headers: { 'x-auth-token': token }
           });
           fetchUsers();
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
       async () => {
         try {
           const token = localStorage.getItem('token');
-          await axios.delete(`http://localhost:5000/api/users/${userId}`, {
+          await axios.delete(`https://luminabeauty.onrender.com/api/users/${userId}`, {
             headers: { 'x-auth-token': token }
           });
           fetchUsers();
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/users/${selectedUser._id}/email`, emailData, {
+      await axios.post(`https://luminabeauty.onrender.com/api/users/${selectedUser._id}/email`, emailData, {
         headers: { 'x-auth-token': token }
       });
       setShowEmailModal(false);
@@ -193,11 +193,11 @@ export default function AdminDashboard() {
     const token = localStorage.getItem('token');
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/products/${editingId}`, currentProduct, {
+        await axios.put(`https://luminabeauty.onrender.com/api/products/${editingId}`, currentProduct, {
           headers: { 'x-auth-token': token }
         });
       } else {
-        await axios.post('http://localhost:5000/api/products', currentProduct, {
+        await axios.post('https://luminabeauty.onrender.com/api/products', currentProduct, {
           headers: { 'x-auth-token': token }
         });
       }
@@ -216,7 +216,7 @@ export default function AdminDashboard() {
       'Are you sure you want to remove this item from inventory?',
       async () => {
         try {
-          await axios.delete(`http://localhost:5000/api/products/${id}`, {
+          await axios.delete(`https://luminabeauty.onrender.com/api/products/${id}`, {
             headers: { 'x-auth-token': localStorage.getItem('token') }
           });
           fetchProducts();

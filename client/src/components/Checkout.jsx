@@ -52,7 +52,7 @@ const Checkout = () => {
         // Fetch addresses if token is available
         if (token) {
           try {
-            const res = await axios.get('http://localhost:5000/api/users/addresses', {
+            const res = await axios.get('https://luminabeauty.onrender.com/api/users/addresses', {
               headers: { 'x-auth-token': token }
             });
             
@@ -107,7 +107,7 @@ const Checkout = () => {
       // Save address if requested
       if (saveAddress && user) {
         try {
-          await axios.post('http://localhost:5000/api/users/addresses', {
+          await axios.post('https://luminabeauty.onrender.com/api/users/addresses', {
             street: formData.address,
             city: formData.city,
             state: formData.state,
@@ -130,7 +130,7 @@ const Checkout = () => {
         userId: user?.id
       };
       
-      await axios.post('http://localhost:5000/api/checkout', orderData);
+      await axios.post('https://luminabeauty.onrender.com/api/checkout', orderData);
       
       localStorage.removeItem('cart');
       

@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: beauty-shop-backend
+    runtime: node
+    repo: https://github.com/your-username/beauty-shop
+    branch: main
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: beauty-shop-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+  - type: web
+    name: beauty-shop-frontend
+    runtime: static
+    repo: https://github.com/your-username/beauty-shop
+    branch: main
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: beauty-shop-backend
+          property: host
+
+databases:
+  - name: beauty-shop-db
+    databaseName: beauty_shop
+    user: beauty_shop_user

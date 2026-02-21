@@ -12,7 +12,7 @@ const Collection = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/products');
+        const res = await axios.get('https://luminabeauty.onrender.com/api/products');
         // Filter by category (case-insensitive)
         const filtered = res.data.filter(p => 
           p.category.toLowerCase() === category.toLowerCase()
