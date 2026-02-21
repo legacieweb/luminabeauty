@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { PaystackButton } from 'react-paystack';
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -20,6 +19,23 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const publicKey = "pk_test_232531a5c927ef2cc67ed1b85af3f26e3b8ed2f2";
+
+  // Load Paystack script
+  useEffect(() => {
+    if (window.Paystack) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://js.paystack.co/v1/inline.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('Paystack script loaded');
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -166,17 +182,31 @@ const Checkout = () => {
     }));
   };
 
-  const componentProps = {
-    email: formData.email,
-    amount,
-    currency: "USD",
-    metadata: {
-      name: `${formData.firstName} ${formData.lastName}`,
-    },
-    publicKey,
-    text: `Pay $${calculateTotal()}`,
-    onSuccess: (reference) => handlePaystackSuccessAction(reference),
-    onClose: handlePaystackCloseAction,
+  const handlePayment = () => {
+    if (!window.Paystack) {
+      window.dispatchEvent(new CustomEvent('showPopup', {
+        detail: {
+          title: 'Payment Error',
+          message: 'Payment system is not ready yet. Please try again.',
+          type: 'error'
+        }
+      }));
+      return;
+    }
+
+    const paystack = window.Paystack.popup({
+      key: publicKey,
+      email: formData.email,
+      amount: amount,
+      currency: "USD",
+      metadata: {
+        name: `${formData.firstName} ${formData.lastName}`,
+      },
+      callback: (reference) => handlePaystackSuccessAction(reference),
+      onClose: handlePaystackCloseAction,
+    });
+
+    paystack.openIframe();
   };
 
   const isFormValid = formData.email && formData.firstName && formData.lastName && formData.address && formData.city && formData.postalCode && formData.state;
@@ -250,11 +280,14 @@ const Checkout = () => {
               </div>
 
               {isFormValid ? (
-                <PaystackButton 
+                <button 
+                  type="button" 
                   className="btn btn-primary" 
-                  {...componentProps}
+                  onClick={handlePayment}
                   style={{ marginTop: '2rem', padding: '1.2rem', fontSize: '1rem', cursor: 'pointer' }}
-                />
+                >
+                  Pay ${calculateTotal()}
+                </button>
               ) : (
                 <button 
                   type="button" 
