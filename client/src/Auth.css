@@ -1,0 +1,223 @@
+:root {
+  --auth-bg: #ffffff;
+  --auth-accent: #c9a07a;
+  --auth-text: #1a1a1a;
+  --auth-muted: #888888;
+  --auth-input-bg: transparent;
+}
+
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--auth-bg);
+  overflow: hidden;
+}
+
+.auth-visual {
+  flex: 1.2;
+  position: relative;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+}
+
+.auth-visual-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+}
+
+.auth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8% 0 6%;
+  position: relative;
+}
+
+.auth-header {
+  margin-bottom: 4rem;
+}
+
+.auth-header .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  color: var(--auth-text);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 3rem;
+}
+
+.auth-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.auth-header p {
+  color: var(--auth-muted);
+  font-size: 1.1rem;
+}
+
+/* Immersive Input Styling (Formless) */
+.immersive-input-group {
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.immersive-input-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--auth-accent);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.immersive-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 0;
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--auth-text);
+  transition: all 0.4s ease;
+  outline: none;
+}
+
+.immersive-input:focus {
+  border-bottom-color: var(--auth-text);
+}
+
+.immersive-input::placeholder {
+  color: #ccc;
+  font-weight: 300;
+}
+
+.auth-footer {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-primary-btn {
+  background: var(--auth-text);
+  color: #fff;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: fit-content;
+}
+
+.auth-primary-btn:hover {
+  background: var(--auth-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.auth-secondary-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.85rem;
+  color: var(--auth-muted);
+}
+
+.auth-secondary-actions a {
+  color: var(--auth-text);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.auth-secondary-actions a:hover {
+  border-bottom-color: var(--auth-text);
+}
+
+.social-login-minimal {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  color: var(--auth-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: var(--auth-text);
+}
+
+.error-toast {
+  background: #fff;
+  color: #e31c5f;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-left: 2px solid #e31c5f;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .auth-visual {
+    display: none;
+  }
+  
+  .auth-content {
+    padding: 2rem 10%;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .auth-primary-btn {
+    width: 100%;
+  }
+  
+  .auth-secondary-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

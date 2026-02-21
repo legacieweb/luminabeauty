@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Test Items to Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 12px 16px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Test Items to Cart</h1>
+        <p>This page helps you add sample items to your cart for testing purposes.</p>
+        
+        <div class="instructions">
+            <h3>How to Use:</h3>
+            <ol>
+                <li>Click the "Add Sample Items" button below</li>
+                <li>Go to the <a href="http://localhost:5173/cart" target="_blank">Cart Page</a> to see the items</li>
+                <li>You can also click "Clear Cart" to remove all items</li>
+            </ol>
+        </div>
+        
+        <button onclick="addSampleItems()">Add Sample Items</button>
+        <button onclick="clearCart()">Clear Cart</button>
+        <button onclick="showCart()">Show Cart Items</button>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Sample cart items
+        const sampleItems = [
+            {
+                "_id": "1",
+                "name": "Radiance Glow Serum",
+                "category": "Skincare",
+                "price": 89,
+                "image": "https://images.unsplash.com/photo-1610945857237-d66d5276a3ca?q=80&w=800&auto=format&fit=crop",
+                "quantity": 1
+            },
+            {
+                "_id": "2",
+                "name": "Velvet Matte Lipstick",
+                "category": "Makeup",
+                "price": 35,
+                "image": "https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?q=80&w=800&auto=format&fit=crop",
+                "quantity": 2
+            },
+            {
+                "_id": "3",
+                "name": "Luxury Perfume Set",
+                "category": "Fragrance",
+                "price": 125,
+                "image": "https://images.unsplash.com/photo-1570198535333-7103771c670a?q=80&w=800&auto=format&fit=crop",
+                "quantity": 1
+            }
+        ];
+
+        function addSampleItems() {
+            localStorage.setItem('cart', JSON.stringify(sampleItems));
+            showCart();
+        }
+
+        function clearCart() {
+            localStorage.setItem('cart', JSON.stringify([]));
+            showCart();
+        }
+
+        function showCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const output = document.getElementById('output');
+            output.innerHTML = '<pre>' + JSON.stringify(cart, null, 2) + '</pre>';
+        }
+
+        // Show initial cart state
+        showCart();
+    </script>
+</body>
+</html>
